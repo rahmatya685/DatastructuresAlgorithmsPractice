@@ -2,7 +2,6 @@ package mosh.array
 
 import kotlin.Array
 import kotlin.collections.*
-import kotlin.io.*
 
 // Complete the mosh.array.rotLeft function below.
 fun rotLeft(a: kotlin.Array<Int>, d: Int): kotlin.Array<Int> {

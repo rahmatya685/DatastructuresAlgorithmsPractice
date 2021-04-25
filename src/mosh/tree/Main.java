@@ -8,14 +8,15 @@ public class Main {
         customTree.insert(3);
         customTree.insert(4);
         customTree.insert(5);
-//        customTree.insert(7);
-//        customTree.insert(4);
-//        customTree.insert(9);
-//        customTree.insert(1);
-//        customTree.insert(6);
-//        customTree.insert(8);
-//        customTree.insert(10);
-//        customTree.insert(16);
+        customTree.insert(7);
+        customTree.insert(4);
+        customTree.insert(9);
+        customTree.insert(1);
+        customTree.insert(6);
+        customTree.insert(8);
+        customTree.insert(10);
+        customTree.insert(16);
+
 
         System.out.println("hasValue=> " + customTree.find(0));
 
@@ -33,6 +34,28 @@ public class Main {
 
 
         System.out.println(" customTree.maxDepth()=> " + customTree.maxDepth());
+
+        System.out.println(" minimum value in tree=>"+ customTree.minValue());
+
+        System.out.println(" minInBinarySearchIteration =>"+ customTree.minInBinarySearchIteration());
+
+
+        CustomTree customTree2 = new CustomTree();
+
+        customTree2.insert(1);
+        customTree2.insert(2);
+        customTree2.insert(3);
+        customTree2.insert(4);
+        customTree2.insert(5);
+        customTree2.insert(7);
+        customTree2.insert(4);
+        customTree2.insert(9);
+        customTree2.insert(1);
+        customTree2.insert(6);
+        customTree2.insert(8);
+        customTree2.insert(10);
+
+        System.out.println("Equality => "+customTree.equals(customTree2));
     }
 
 

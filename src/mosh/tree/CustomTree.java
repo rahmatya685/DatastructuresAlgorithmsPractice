@@ -1,5 +1,7 @@
 package mosh.tree;
 
+import java.util.Objects;
+
 public class CustomTree {
 
     private Node root;
@@ -110,6 +112,75 @@ public class CustomTree {
             return maxDepth(root.right) + 1;
     }
 
+    public int minValue() {
+        return minBinarySearchRecursion(root);
+    }
+
+
+    public int minInBinarySearchIteration() {
+        return minInBinarySearchIteration(root);
+    }
+
+    /**
+     * Finds minimum value in a binary search tree using iteration
+     * in a binary search tree, the left most node is minimum and
+     * the right most node is maximum
+     *
+     * @param node
+     * @return
+     */
+    private int minInBinarySearchIteration(Node node) {
+        if (node == null)
+            throw new IllegalStateException();
+
+        var current = node;
+        var last = current;
+        while (current != null) {
+            last = current;
+            current = current.left;
+        }
+        return last.val;
+    }
+
+    /**
+     * for binary search tree using recursion
+     *
+     * @param root
+     * @return minimum value in a binary search tree
+     */
+    private int minBinarySearchRecursion(Node root) {
+        if (root == null)
+            return -1;
+        if (isLeaf(root))
+            return root.val;
+        if (root.left != null)
+            return Math.min(root.val, minBinarySearchRecursion(root.left));
+        return Math.min(root.val, minBinarySearchRecursion(root.right));
+    }
+
+    /**
+     * for binary tree using recursion
+     *
+     * @param root
+     * @return minimum value in a binary tree
+     */
+    private int minBinaryRecursion(Node root) {
+
+        if (isLeaf(root))
+            return root.val;
+
+        var left = minBinaryRecursion(root.left);
+        var right = minBinaryRecursion(root.right);
+
+        return Math.min(Math.min(left, right), root.val);
+
+    }
+
+    private boolean isLeaf(Node node) {
+        return node.right == null && node.left == null;
+    }
+
+
     /**
      * Visit deepest right child and then the child's parent and finally the deepest left child
      * Continue this pattern with other small nodes
@@ -136,6 +207,25 @@ public class CustomTree {
         traversePreOrder(node.right);
     }
 
+    public boolean equals(CustomTree n) {
+        return isEqual(n.root, this.root);
+    }
+
+    private boolean isEqual(Node i, Node o) {
+        if (i == null && o == null)
+            return true;
+
+        if (i != null && o != null) {
+            if (i.val != o.val)
+                return false;
+            else {
+                return isEqual(i.left, o.left) && isEqual(i.right, o.right);
+            }
+        } else
+            return false;
+
+    }
+
 
     private class Node {
         int val;
@@ -152,5 +242,7 @@ public class CustomTree {
                     "value=" + val +
                     '}';
         }
+
+
     }
 }

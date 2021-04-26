@@ -1,7 +1,5 @@
 package mosh.tree;
 
-import java.util.Objects;
-
 public class CustomTree {
 
     private Node root;
@@ -22,9 +20,9 @@ public class CustomTree {
         }
         var initial = root;
         while (initial != null) {
-            var child = value > initial.val ? initial.right : initial.left;
+            var child = value > initial.data ? initial.right : initial.left;
             if (child == null) {
-                if (value > initial.val)
+                if (value > initial.data)
                     initial.right = newNode;
                 else
                     initial.left = newNode;
@@ -36,9 +34,9 @@ public class CustomTree {
     public boolean find(int value) {
         var initial = root;
         while (initial != null) {
-            if (value > initial.val)
+            if (value > initial.data)
                 initial = initial.right;
-            else if (value < initial.val)
+            else if (value < initial.data)
                 initial = initial.left;
             else
                 return true;
@@ -85,9 +83,9 @@ public class CustomTree {
         System.out.println(node.toString());
         int depth = 0;
         var current = getRoot();
-        while (current != null && current.val != node.val) {
+        while (current != null && current.data != node.data) {
             System.out.println(current.toString());
-            current = current.val > node.val ? current.left : current.right;
+            current = current.data > node.data ? current.left : current.right;
             depth++;
         }
         return depth;
@@ -139,7 +137,7 @@ public class CustomTree {
             last = current;
             current = current.left;
         }
-        return last.val;
+        return last.data;
     }
 
     /**
@@ -152,10 +150,10 @@ public class CustomTree {
         if (root == null)
             return -1;
         if (isLeaf(root))
-            return root.val;
+            return root.data;
         if (root.left != null)
-            return Math.min(root.val, minBinarySearchRecursion(root.left));
-        return Math.min(root.val, minBinarySearchRecursion(root.right));
+            return Math.min(root.data, minBinarySearchRecursion(root.left));
+        return Math.min(root.data, minBinarySearchRecursion(root.right));
     }
 
     /**
@@ -167,12 +165,12 @@ public class CustomTree {
     private int minBinaryRecursion(Node root) {
 
         if (isLeaf(root))
-            return root.val;
+            return root.data;
 
         var left = minBinaryRecursion(root.left);
         var right = minBinaryRecursion(root.right);
 
-        return Math.min(Math.min(left, right), root.val);
+        return Math.min(Math.min(left, right), root.data);
 
     }
 
@@ -192,8 +190,10 @@ public class CustomTree {
             return;
         traversePostOrder(node.right);
         traversePostOrder(node.left);
-        System.out.println(node.val);
+        System.out.print(node.data+" ");
     }
+
+
 
     public void traversePreOrder() {
         traversePreOrder(root);
@@ -202,7 +202,7 @@ public class CustomTree {
     private void traversePreOrder(Node node) {
         if (node == null)
             return;
-        System.out.println(node.val);
+        System.out.println(node.data);
         traversePreOrder(node.left);
         traversePreOrder(node.right);
     }
@@ -216,7 +216,7 @@ public class CustomTree {
             return true;
 
         if (i != null && o != null) {
-            if (i.val != o.val)
+            if (i.data != o.data)
                 return false;
             else {
                 return isEqual(i.left, o.left) && isEqual(i.right, o.right);
@@ -226,20 +226,45 @@ public class CustomTree {
 
     }
 
+    public boolean isBinarySearchTree() {
+        return checkBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+
+    /**
+     * A binary search tree is a binary tree in which the left node value is smaller then paren node value
+     * and right node value is bigger that left and parent node value
+     *
+     * @param root Node under evaluation
+     * @param min minimum value for a node
+     * @param max maximum value for a node
+     * @return whether given node is Binary Search Tree
+     */
+    private boolean checkBST(Node root, int min, int max) {
+        if (root == null)
+            return true;
+        if (root.data < min || root.data > max)
+            return false;
+
+        return checkBST(root.left, min, root.data - 1) &&
+                checkBST(root.right, root.data + 1, max);
+
+    }
+
 
     private class Node {
-        int val;
+        int data;
         Node left;
         Node right;
 
         public Node(int value) {
-            this.val = value;
+            this.data = value;
         }
 
         @Override
         public String toString() {
             return "Node{" +
-                    "value=" + val +
+                    "value=" + data +
                     '}';
         }
 

@@ -183,6 +183,8 @@ public class CustomTree {
      * Visit deepest right child and then the child's parent and finally the deepest left child
      * Continue this pattern with other small nodes
      *
+     * Visit Order => Left,Right,Parent
+     *
      * @param node
      */
     private void traversePostOrder(Node node) {
@@ -199,6 +201,11 @@ public class CustomTree {
         traversePreOrder(root);
     }
 
+    /**
+     * Visit order => Parent,Left,Right
+     *
+     * @param node given node for traverse
+     */
     private void traversePreOrder(Node node) {
         if (node == null)
             return;
@@ -206,6 +213,7 @@ public class CustomTree {
         traversePreOrder(node.left);
         traversePreOrder(node.right);
     }
+
 
     public boolean equals(CustomTree n) {
         return isEqual(n.root, this.root);
